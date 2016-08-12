@@ -281,8 +281,7 @@
 
       
         
-          
-            <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><hr>
+          <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><hr>
 <blockquote>
 <p>类族（class cluster）模式，可以隐藏其抽象基类(abstract base class)背后的实现细节。</p>
 </blockquote>
@@ -290,18 +289,12 @@
 <blockquote>
 <p>+(UIButton)buttonWithType:(UIButtonType)type;</p>
 </blockquote>
-<p>button对象的类型 取决我们使用上述方法传入的一个type参数的类型，假如我们想创建不同类型的button，只需要传入不同的type即可，这就是类族模式，将大部分细节隐藏起来，只提供一个公共接口用来创建对象。</p>
-<p>####例子</p>
-<hr>
-<ul>
-<li>创建一个类People，具有name属性，还有初始化方法类方法PeopleWithSex以及需要做的事的方法DoSomething。</li>
-<li>给People加一个枚举类型PeopleSex，分别设置三个属性PeopleSexMan,<br>  PeopleSexWoman,<br>  PeopleSexNone</li>
-<li>利用这三个属性在初始化方法中用switch语句在People类中进行实例的创建。</li>
-<li>另外注意isKindOfClass与isMemberOfClass的区别。</li>
-<li>Cocoa中的（NSDictionary，NSArray，NSSet）都是类似的。</li>
-</ul>
-
-          
+<p>button对象的类型 取决我们使用上述方法传入的一个type参数的类型，假如我们想创建不同类型的button，只需要传入不同的type即可，这就是类族模式，将大部分细节隐藏起来，只提供一个公共接口用来创建对象。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/12/类族模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
