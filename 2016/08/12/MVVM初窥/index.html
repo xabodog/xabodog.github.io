@@ -84,15 +84,25 @@
 
 
 
-<meta name="description" content="死并非生的对立面，而是作为生的一部分与之永存">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xabodog的分享空间">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="##什么是MVVM
+
+MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVVM初窥">
+<meta property="og:url" content="http://yoursite.com/2016/08/12/MVVM初窥/index.html">
 <meta property="og:site_name" content="xabodog的分享空间">
-<meta property="og:description" content="死并非生的对立面，而是作为生的一部分与之永存">
+<meta property="og:description" content="##什么是MVVM
+
+MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。">
+<meta property="og:image" content="https://objccn.io/images/issues/issue-13/mvvm1.png">
+<meta property="og:image" content="https://objccn.io/images/issues//issue-13/mvvm.png">
+<meta property="og:updated_time" content="2016-08-12T05:27:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xabodog的分享空间">
-<meta name="twitter:description" content="死并非生的对立面，而是作为生的一部分与之永存">
+<meta name="twitter:title" content="MVVM初窥">
+<meta name="twitter:description" content="##什么是MVVM
+
+MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。">
+<meta name="twitter:image" content="https://objccn.io/images/issues/issue-13/mvvm1.png">
 
 
 
@@ -113,9 +123,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/12/MVVM初窥/"/>
 
-  <title> xabodog的分享空间 </title>
+  <title> MVVM初窥 | xabodog的分享空间 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,9 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,9 +223,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -237,10 +245,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/12/MVVM初窥/" itemprop="url">
-                  MVVM初窥
-                </a>
+                MVVM初窥
               
             
           </h1>
@@ -280,24 +285,40 @@
       
 
       
-        
-          <p>##什么是MVVM</p>
+        <p>##什么是MVVM</p>
 <hr>
-<p>MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/12/MVVM初窥/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+<p>MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。<br><a id="more"></a></p>
+<ul>
+<li>MVVM是为了解决MVC结构中Controller过于臃肿的问题。</li>
+<li>MVVM是将Controller中不可复用的部分抽离出来。</li>
+</ul>
+<p>#####那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）</p>
+<ul>
+<li>在初始化时，构造相应的 View 和 Model。</li>
+<li>监听 Model 层的事件，将 Model 层的数据传递到 View 层。</li>
+<li>监听 View 层的事件，并且将 View 层的事件转发到 Model 层。</li>
+</ul>
+<hr>
+<p>#####MVC<br><img src="https://objccn.io/images/issues/issue-13/mvvm1.png" alt="图片"></p>
+<hr>
+<p>#####MVVM<br><img src="https://objccn.io/images/issues//issue-13/mvvm.png" alt="tupian"></p>
+<p><a href="http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/" target="_blank" rel="external">MVVM的好处</a></p>
+<p><a href="https://objccn.io/issue-13-1/" target="_blank" rel="external">例子</a></p>
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -305,123 +326,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/12/类族模式/" rel="next" title="类族模式">
+                <i class="fa fa-chevron-left"></i> 类族模式
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/08/12/类族模式/" itemprop="url">
-                  类族模式
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T12:53:04+08:00" content="2016-08-12">
-              2016-08-12
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><hr>
-<blockquote>
-<p>类族（class cluster）模式，可以隐藏其抽象基类(abstract base class)背后的实现细节。</p>
-</blockquote>
-<p>例如：UIButton类中，假如我们想要创建一个button对象，需要进行初始化，那么其初始化方法为</p>
-<blockquote>
-<p>+(UIButton)buttonWithType:(UIButtonType)type;</p>
-</blockquote>
-<p>button对象的类型 取决我们使用上述方法传入的一个type参数的类型，假如我们想创建不同类型的button，只需要传入不同的type即可，这就是类族模式，将大部分细节隐藏起来，只提供一个公共接口用来创建对象。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/12/类族模式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -429,6 +359,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -448,8 +382,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/zzc.JPG"
@@ -485,6 +428,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -588,6 +542,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
