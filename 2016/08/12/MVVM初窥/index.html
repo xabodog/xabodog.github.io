@@ -94,7 +94,7 @@ MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合�
 MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合起来在ViewController和Model中间加多一个ViewModel，ViewModel不直接引用View，ViewController也不引用Model中的方法，所有网络回调数据处理等逻辑都放到ViewModel中，ViewController通过ViewModel来请求数据和更新数据。">
 <meta property="og:image" content="https://objccn.io/images/issues/issue-13/mvvm1.png">
 <meta property="og:image" content="https://objccn.io/images/issues//issue-13/mvvm.png">
-<meta property="og:updated_time" content="2016-08-12T05:41:48.000Z">
+<meta property="og:updated_time" content="2016-08-13T08:19:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVVM初窥">
 <meta name="twitter:description" content="什么是MVVM
@@ -157,7 +157,7 @@ MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合�
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle">一位菜鸟程序员成长之路</p>
+  <p class="site-subtitle">一个iOS devoloper的成长笔记</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -288,7 +288,8 @@ MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合�
 <li>MVVM是为了解决MVC结构中Controller过于臃肿的问题。</li>
 <li>MVVM是将Controller中不可复用的部分抽离出来。</li>
 </ul>
-<h5 id="那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）"><a href="#那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）" class="headerlink" title="那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）"></a>那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）</h5><ul>
+<p>那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）</p>
+<ul>
 <li>在初始化时，构造相应的 View 和 Model。</li>
 <li>监听 Model 层的事件，将 Model 层的数据传递到 View 层。</li>
 <li>监听 View 层的事件，并且将 View 层的事件转发到 Model 层。</li>
@@ -430,7 +431,7 @@ MVVM简单说就是将部分逻辑从ViewController中拆分出来，并整合�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是MVVM"><span class="nav-number">1.</span> <span class="nav-text">什么是MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">那么Controller应该发挥什么作用呢（或者说必须在Controller中实现的功能）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC"><span class="nav-number">1.1.</span> <span class="nav-text">MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM"><span class="nav-number">1.2.</span> <span class="nav-text">MVVM</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是MVVM"><span class="nav-number">1.</span> <span class="nav-text">什么是MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC"><span class="nav-number">1.1.</span> <span class="nav-text">MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM"><span class="nav-number">1.2.</span> <span class="nav-text">MVVM</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
