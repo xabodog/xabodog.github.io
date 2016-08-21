@@ -1,0 +1,561 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="购物车的实现思路
+情景描述如图所示，实现点击添加入购物车，之后在购物车界面进行查看所选的货物以及价钱计算，当然，也可以删除所选的货物。（gif录制软件用的是LICEcap）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="购物车demo">
+<meta property="og:url" content="http://yoursite.com/2016/08/21/购物车demo/index.html">
+<meta property="og:site_name" content="xabodog的分享空间">
+<meta property="og:description" content="购物车的实现思路
+情景描述如图所示，实现点击添加入购物车，之后在购物车界面进行查看所选的货物以及价钱计算，当然，也可以删除所选的货物。（gif录制软件用的是LICEcap）">
+<meta property="og:image" content="http://yoursite.com/images/购物车demo.gif">
+<meta property="og:image" content="http://yoursite.com/images/购物车sb界面.png">
+<meta property="og:updated_time" content="2016-08-21T11:09:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="购物车demo">
+<meta name="twitter:description" content="购物车的实现思路
+情景描述如图所示，实现点击添加入购物车，之后在购物车界面进行查看所选的货物以及价钱计算，当然，也可以删除所选的货物。（gif录制软件用的是LICEcap）">
+<meta name="twitter:image" content="http://yoursite.com/images/购物车demo.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/21/购物车demo/"/>
+
+  <title> 购物车demo | xabodog的分享空间 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xabodog的分享空间</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个iOS developer的成长笔记</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                购物车demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-21T18:15:17+08:00" content="2016-08-21">
+              2016-08-21
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>购物车的实现思路</p>
+<h3 id="情景描述"><a href="#情景描述" class="headerlink" title="情景描述"></a>情景描述</h3><p>如图所示，实现点击添加入购物车，之后在购物车界面进行查看所选的货物以及价钱计算，当然，也可以删除所选的货物。（gif录制软件用的是LICEcap）<br><img src="/images/购物车demo.gif" alt="“场景描述”"><br><a id="more"></a></p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>利用storyboard进行基础的TabbarController，NavigationController的搭建<br><img src="/images/购物车sb界面.png" alt="“sb界面”"><br>之后将两个TableViewController与相关的类进行关联，而TableViewCell的自定义动态布局是使用Xib文件实现的，其中的数据是保存在数据库中，数据库分为两个表，分别为product和cart，用id作为Primary Key进行关联。而页面的加载，就是加载数据库中的文件。</p>
+<h3 id="我认为的难点"><a href="#我认为的难点" class="headerlink" title="我认为的难点"></a>我认为的难点</h3><p>我认为的难点就是很多人一开始会想一些传值方面的逻辑，可能会搞不清楚，此时应用数据库来进行数据的操作的话会更简单，省去了一些复杂的逻辑，而且也更方便用户的使用，更加注重用户体验。</p>
+<h3 id="Demo描述"><a href="#Demo描述" class="headerlink" title="Demo描述"></a>Demo描述</h3><p>就是将Model中的数据从数据库中取得，一些Button的操作实际上就是对数据库的操作，而Demo用的是FMDB这个第三方库，所有的难点就都在数据库上的操作，要求我们熟练掌握数据库的相关操作，如果你想看传值方面的事情，请参考我的上一篇文章。以下是数据库的相关操作：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//总金额</span></div><div class="line">+ (<span class="keyword">double</span>)totalAmount</div><div class="line">&#123;</div><div class="line">    <span class="keyword">double</span> total = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">NSMutableArray</span> *contents = [<span class="keyword">self</span> contents];</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(CartItem *item <span class="keyword">in</span> contents)</div><div class="line">    &#123;   ;</div><div class="line">        total += ([item.product.price doubleValue] * item.quantity);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> total;</div><div class="line">&#125;</div><div class="line"><span class="comment">//商品个数</span></div><div class="line">+ (<span class="keyword">int</span>)totalProducts</div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> total = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="built_in">NSMutableArray</span> *contents = [<span class="keyword">self</span> contents];</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(CartItem *item <span class="keyword">in</span> contents)</div><div class="line">    &#123;</div><div class="line">        total += item.quantity;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> total;</div><div class="line">&#125;</div><div class="line"><span class="comment">//遍历表并取出购物车中的商品</span></div><div class="line">+ (<span class="built_in">NSMutableArray</span> *)contents</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSMutableArray</span> *content = [[<span class="built_in">NSMutableArray</span> alloc] init];</div><div class="line"></div><div class="line">    FMDatabase *db = [FMDatabase databaseWithPath:[Db getDatabasePath]];</div><div class="line"></div><div class="line">    [db open];</div><div class="line"></div><div class="line">    FMResultSet *results = [db executeQuery:<span class="string">@"SELECT p.*, c.quantity FROM products p JOIN cart c ON p.id = c.productid"</span>];</div><div class="line"></div><div class="line">    <span class="keyword">while</span>([results next])</div><div class="line">    &#123;</div><div class="line">        Product *product = [[Product alloc] init];</div><div class="line"></div><div class="line">        product.id = [results intForColumn:<span class="string">@"id"</span>];</div><div class="line">        product.name = [results stringForColumn:<span class="string">@"name"</span>];</div><div class="line">        product.image = [results stringForColumn:<span class="string">@"image"</span>];</div><div class="line">        product.price = [results stringForColumn:<span class="string">@"price"</span>];</div><div class="line"></div><div class="line">        CartItem *item = [[CartItem alloc] initWithProduct:product andQuantity:[results intForColumn:<span class="string">@"quantity"</span>]];</div><div class="line"></div><div class="line">        [content addObject:item];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [db close];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> content;</div><div class="line">&#125;</div><div class="line"><span class="comment">//根据id取得商品</span></div><div class="line">+ (CartItem *)getProduct:(<span class="keyword">int</span>)productid</div><div class="line">&#123;</div><div class="line">    CartItem *item = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">    FMDatabase *db = [FMDatabase databaseWithPath:[Db getDatabasePath]];</div><div class="line"></div><div class="line">    [db open];</div><div class="line"></div><div class="line">    FMResultSet *results = [db executeQuery:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"SELECT p.*, c.quantity FROM products p JOIN cart c ON p.id = c.productid where p.id = %d"</span>, productid]];</div><div class="line"></div><div class="line">    <span class="keyword">while</span>([results next])</div><div class="line">    &#123;</div><div class="line">        Product *product = [[Product alloc] init];</div><div class="line"></div><div class="line">        product.id = [results intForColumn:<span class="string">@"id"</span>];</div><div class="line">        product.name = [results stringForColumn:<span class="string">@"name"</span>];</div><div class="line">        product.image = [results stringForColumn:<span class="string">@"image"</span>];</div><div class="line">        product.price = [results stringForColumn:<span class="string">@"price"</span>];</div><div class="line"></div><div class="line">        item = [[CartItem alloc] initWithProduct:product andQuantity:[results intForColumn:<span class="string">@"quantity"</span>]];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [db close];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> item;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//删除商品</span></div><div class="line">+ (<span class="built_in">BOOL</span>)removeProduct:(Product *)product</div><div class="line">&#123;</div><div class="line">    FMDatabase *db = [FMDatabase databaseWithPath:[Db getDatabasePath]];</div><div class="line">    <span class="built_in">BOOL</span> success = <span class="literal">NO</span>;</div><div class="line"></div><div class="line">    [db open];</div><div class="line"></div><div class="line">    <span class="keyword">@try</span></div><div class="line">    &#123;</div><div class="line">        success = [db executeUpdate:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"DELETE FROM cart where productid = %d"</span>, product.id]];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Error: %@"</span>, [exception reason]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@finally</span></div><div class="line">    &#123;</div><div class="line">        [db close];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> success;</div><div class="line">&#125;</div><div class="line"><span class="comment">//添加商品</span></div><div class="line">+ (<span class="built_in">BOOL</span>)addProduct:(Product *)product</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> addProduct:product quantity:<span class="number">1</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>)addProduct:(Product *)product quantity:(<span class="keyword">int</span>)quantity</div><div class="line">&#123;</div><div class="line">    FMDatabase *db = [FMDatabase databaseWithPath:[Db getDatabasePath]];</div><div class="line">    <span class="built_in">BOOL</span> success = <span class="literal">NO</span>;</div><div class="line">    </div><div class="line">    [db open];</div><div class="line">    </div><div class="line">    <span class="keyword">@try</span></div><div class="line">    &#123;</div><div class="line">        CartItem *item = [<span class="keyword">self</span> getProduct:product.id];</div><div class="line">        success = item ?</div><div class="line">        [db executeUpdate:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"UPDATE cart set quantity = %d where productid = %d"</span>, quantity + item.quantity, product.id]] :</div><div class="line">        [db executeUpdate:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"INSERT INTO cart (productid,quantity) VALUES (%d,%d)"</span>, product.id, quantity]];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Error: %@"</span>, [exception reason]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@finally</span></div><div class="line">    &#123;</div><div class="line">        [db close];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> success;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="改进方案"><a href="#改进方案" class="headerlink" title="改进方案"></a>改进方案</h3><p>这个demo用户体验并不强，比如添加商品的抛物线动画效果的话可以参考<a href="https://github.com/yhangeline/shoppingCart" target="_blank" rel="external">抛物线动画Demo</a>。</p>
+<p>我的demo地址是<a href="https://github.com/xabodog/shoppingCartDemo" target="_blank" rel="external">github</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/三种传值方法/" rel="next" title="两种Objective-C中的传值方法(Block和Delegate)">
+                <i class="fa fa-chevron-left"></i> 两种Objective-C中的传值方法(Block和Delegate)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/zzc.JPG"
+               alt="zzc" />
+          <p class="site-author-name" itemprop="name">zzc</p>
+          <p class="site-description motion-element" itemprop="description">死并非生的对立面，而是作为生的一部分与之永存</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#情景描述"><span class="nav-number">1.</span> <span class="nav-text">情景描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路"><span class="nav-number">2.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我认为的难点"><span class="nav-number">3.</span> <span class="nav-text">我认为的难点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo描述"><span class="nav-number">4.</span> <span class="nav-text">Demo描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进方案"><span class="nav-number">5.</span> <span class="nav-text">改进方案</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zzc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
